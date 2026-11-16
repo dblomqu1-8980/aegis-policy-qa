@@ -1,0 +1,34 @@
+- question: Can I paste client data into ChatGPT?
+  source: Northwoods AI Acceptable-Use Policy
+  check: No unapproved tool; exception requires authorization.
+- question: What do I do if I want to try a new AI tool?
+  source: Northwoods Employee Handbook: AI
+  check: Seek written approval first.
+- question: Can AI draft a client deliverable with no human review?
+  source: Northwoods AI Acceptable-Use Policy
+  check: No; a qualified employee must review.
+- question: What should I do if I already pasted client data into a tool?
+  source: Northwoods Employee Handbook: AI
+  check: Stop using it and report promptly.
+- question: Which NIST AI RMF function covers accountability and oversight?
+  source: NIST AI RMF 1.0
+  check: GOVERN.
+- question: May I use a free personal ChatGPT account for firm work?
+  source: Northwoods AI Acceptable-Use Policy
+  check: No.
+- question: Does the policy mention training vendors on our data?
+  source: Northwoods AI Acceptable-Use Policy
+  check: Vendor data-use terms must be reviewed; no assumed setting.
+- question: Where should I record the AI tools I already use?
+  source: Northwoods Employee Handbook: AI
+  check: AI tool inventory.
+- question: What does NIST say about measuring AI risk?
+  source: NIST AI RMF 1.0
+  check: Risks are assessed, analyzed, or tracked.
+- question: Can I put a client's Social Security number into an AI summarizer?
+  source: Northwoods AI Acceptable-Use Policy
+  check: No unapproved tool; authorization and data restrictions apply.
+- question: What is our office holiday schedule?
+  refuse: true
+- question: Is it legal under Michigan law to use AI this way?
+  refuse: true
