@@ -33,8 +33,8 @@ def ask(question, search=retrieve, client=None):
     if not passages:
         return {'answer': REFUSAL, 'citations': []}
     data = [{'passage': i, 'document': p['title'], 'section': p['section'], 'text': p['text']} for i,p in enumerate(passages, 1)]
-    client = client or OpenAI()
-    result = client.chat.completions.create(model=os.getenv('OPENAI_MODEL', 'gpt-4o-mini'), temperature=0,
+    client = client or OpenAI(timeout=30, max_retries=0)
+    result = client.chat.completions.create(model=os.getenv('OPENAI_MODEL', 'gpt-4o-mini'), temperature=0, max_tokens=600,
         response_format={'type': 'json_object'}, messages=[{'role':'system','content':SYSTEM},
         {'role':'user','content':json.dumps({'question':question,'passages':data})}])
     return validate_response(result.choices[0].message.content or '', passages)

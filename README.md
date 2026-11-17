@@ -30,7 +30,11 @@ Markdown sections → OpenAI embeddings → local Chroma index → similarity se
 
 - **Data:** Only fictional and public materials belong in this demo. Questions and retrieved passages are sent to OpenAI for embeddings and generation. Do not enter sensitive or client information. The app does not intentionally save question history, but provider and hosting retention policies apply.
 - **Controls:** The prompt restricts answers to retrieved content, asks for refusal when evidence is missing, and treats retrieved text as data. A similarity threshold and quote validation provide additional checks. These safeguards are imperfect; prompt injection and unsupported interpretations remain possible.
-- **Oversight:** A person maintains the documents, approves policy, reviews outputs, and handles exceptions. The assistant cannot change policy. This sample does not provide authentication, rate limiting, incident monitoring, or production access controls.
+- **Oversight:** A person maintains the documents, approves policy, reviews outputs, and handles exceptions. The assistant cannot change policy. This sample does not provide authentication, durable abuse prevention, incident monitoring, or production access controls. Hosted demo request limits are described below.
 - **Evaluation:** `python -m pytest` runs offline logic checks. The 12-question evaluation set in `evals/questions.yaml` is for future end-to-end evaluation with an API key; it has not been claimed as passing. Check citations, substance, and refusals manually before any public deployment.
 
 See [data/README.md](data/README.md) for source details. No client integrations or live Aegis website changes are included. Contact: https://aegisaiadvisory.com.
+
+## Hosted demo setup
+
+See [deployment instructions](docs/DEPLOY.md) for the exact repository settings and private secrets setup. The app now indexes the sample corpus automatically on the first question and uses per-session and shared daily request limits. These limits apply to one hosting instance and are not a guaranteed dollar cap; see the documented limitations before promoting a public URL.

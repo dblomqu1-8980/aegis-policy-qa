@@ -4,17 +4,18 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import chromadb
 from corpus import ROOT
-from ingest import COLLECTION
+from ingest import COLLECTION, ensure_index
 
 def retrieve(question, limit=5):
     load_dotenv(ROOT / '.env')
     if not os.getenv('OPENAI_API_KEY'):
         raise RuntimeError('Set OPENAI_API_KEY in .env before asking a question.')
+    ensure_index()
     col = chromadb.PersistentClient(path=str(ROOT / '.chroma')).get_collection(COLLECTION)
     model = os.getenv('OPENAI_EMBEDDING_MODEL', 'text-embedding-3-small')
     if col.metadata.get('embedding_model') != model:
         raise RuntimeError('Embedding model changed. Rebuild the index with python src/ingest.py.')
-    vector = OpenAI().embeddings.create(model=model, input=[question]).data[0].embedding
+    vector = OpenAI(timeout=30, max_retries=0).embeddings.create(model=model, input=[question]).data[0].embedding
     result = col.query(query_embeddings=[vector], n_results=min(limit, col.count()),
                        include=['documents', 'metadatas', 'distances'])
     threshold = float(os.getenv('MAX_DISTANCE', '0.65'))

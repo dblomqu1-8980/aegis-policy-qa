@@ -4,3 +4,10 @@ __pycache__/
 .pytest_cache/
 .chroma/
 *.pyc
+
+# Local and hosted secrets and runtime files
+*.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+.runtime/

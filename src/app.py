@@ -3,6 +3,7 @@ import base64
 from pathlib import Path
 
 import streamlit as st
+from usage import DemoLimit, reserve_request
 
 ROOT = Path(__file__).resolve().parents[1]
 st.set_page_config(page_title='Policy Q&A | Aegis AI Advisory', page_icon='🛡️', layout='wide')
@@ -65,10 +66,13 @@ if submitted:
     else:
         st.session_state.pop('policy_result', None)
         try:
+            reserve_request(st.session_state)
             from answer import ask
             with st.spinner('Finding relevant passages and checking the citations…'):
                 result = ask(question)
             st.session_state.policy_result = (question.strip(), result)
+        except DemoLimit as error:
+            st.warning(str(error))
         except Exception:
             st.error('The assistant is temporarily unavailable. Please try again. If the problem continues, ask the demo owner to check its connection and setup.')
 
