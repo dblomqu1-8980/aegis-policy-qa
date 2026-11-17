@@ -1,5 +1,7 @@
 """Aegis-branded interface for the sample policy assistant."""
 import base64
+import logging
+import os
 from pathlib import Path
 
 import streamlit as st
@@ -66,6 +68,13 @@ if submitted:
     else:
         st.session_state.pop('policy_result', None)
         try:
+            # Access initializes Streamlit's root-level environment secrets.
+            # Never log secret values or the contents of this mapping.
+            if not os.getenv('OPENAI_API_KEY'):
+                try:
+                    st.secrets.get('OPENAI_API_KEY')
+                except FileNotFoundError:
+                    pass
             reserve_request(st.session_state)
             from answer import ask
             with st.spinner('Finding relevant passages and checking the citations…'):
@@ -73,7 +82,13 @@ if submitted:
             st.session_state.policy_result = (question.strip(), result)
         except DemoLimit as error:
             st.warning(str(error))
-        except Exception:
+        except Exception as error:
+            status = getattr(error, 'status_code', None)
+            logging.getLogger('aegis').error(
+                'Demo request failed: type=%s status=%s key_configured=%s',
+                type(error).__name__, status if isinstance(status, int) else None,
+                bool(os.getenv('OPENAI_API_KEY')),
+            )
             st.error('The assistant is temporarily unavailable. Please try again. If the problem continues, ask the demo owner to check its connection and setup.')
 
 if 'policy_result' in st.session_state:
