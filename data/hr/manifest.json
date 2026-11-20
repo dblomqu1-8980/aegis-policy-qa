@@ -1,0 +1,38 @@
+[
+  {
+    "document_id": "handbook",
+    "file": "employee-handbook-v2.docx",
+    "title": "Northwoods Employee Handbook",
+    "version": "2.0",
+    "effective_date": "2026-10-01",
+    "status": "active",
+    "audience": "employee"
+  },
+  {
+    "document_id": "handbook",
+    "file": "archive/handbook-v1.md",
+    "title": "Northwoods Employee Handbook",
+    "version": "1.0",
+    "effective_date": "2025-01-01",
+    "status": "superseded",
+    "audience": "employee"
+  },
+  {
+    "document_id": "timeoff",
+    "file": "time-off-policy-v3.pdf",
+    "title": "Northwoods Time Off Policy",
+    "version": "3.0",
+    "effective_date": "2026-11-01",
+    "status": "active",
+    "audience": "employee"
+  },
+  {
+    "document_id": "hr",
+    "file": "hr-procedures.md",
+    "title": "Northwoods HR Procedures",
+    "version": "1.0",
+    "effective_date": "2026-10-01",
+    "status": "active",
+    "audience": "hr"
+  }
+]

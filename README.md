@@ -38,3 +38,9 @@ See [data/README.md](data/README.md) for source details. No client integrations 
 ## Hosted demo setup
 
 See [deployment instructions](docs/DEPLOY.md) for the exact repository settings and private secrets setup. The app now indexes the sample corpus automatically on the first question and uses per-session and shared daily request limits. These limits apply to one hosting instance and are not a guaranteed dollar cap; see the documented limitations before promoting a public URL.
+
+## HR Policy Assistant sample
+
+Public HR demo: https://aegis-policy-demo.streamlit.app/?demo=hr
+
+The added sample uses actual PDF and Word files, an active-version manifest, source-section citations, filtered audience retrieval, and HR escalation guidance. The public role chooser is not authentication and handoff sends no private information. Only invented policies may be hosted here; client deployments require verified SSO, separate private storage, audit and escalation integration.
