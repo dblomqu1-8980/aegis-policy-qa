@@ -10,6 +10,11 @@ from usage import DemoLimit, reserve_request
 ROOT = Path(__file__).resolve().parents[1]
 st.set_page_config(page_title='Policy Q&A | Aegis AI Advisory', page_icon='🛡️', layout='wide')
 st.markdown((ROOT / 'assets' / 'app.css').read_text(), unsafe_allow_html=True)
+
+if st.query_params.get('demo','').lower() == 'hr':
+    from hr_app import render
+    render()
+    st.stop()
 logo = ROOT / 'assets' / 'aegis-logo.jpeg'
 logo_html = ''
 if logo.exists():

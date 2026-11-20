@@ -25,7 +25,7 @@ def validate_response(raw, passages):
     except (ValueError, TypeError, KeyError, json.JSONDecodeError):
         return {'answer': REFUSAL, 'citations': []}
 
-def ask(question, search=retrieve, client=None):
+def ask(question, search=retrieve, client=None, system=None):
     question = question.strip()
     if not question or len(question) > 1000:
         raise ValueError('Enter a question between 1 and 1,000 characters.')
@@ -35,6 +35,6 @@ def ask(question, search=retrieve, client=None):
     data = [{'passage': i, 'document': p['title'], 'section': p['section'], 'text': p['text']} for i,p in enumerate(passages, 1)]
     client = client or OpenAI(timeout=30, max_retries=0)
     result = client.chat.completions.create(model=os.getenv('OPENAI_MODEL', 'gpt-4o-mini'), temperature=0, max_tokens=600,
-        response_format={'type': 'json_object'}, messages=[{'role':'system','content':SYSTEM},
+        response_format={'type': 'json_object'}, messages=[{'role':'system','content':system or SYSTEM},
         {'role':'user','content':json.dumps({'question':question,'passages':data})}])
     return validate_response(result.choices[0].message.content or '', passages)
